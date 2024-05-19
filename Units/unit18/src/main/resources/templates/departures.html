@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Departures</title>
+</head>
+<body>
+<header>
+    <h1>Shop admin panel (departures)</h1>
+    <nav>
+        <a th:href="@{/}">Main</a>
+        <a th:href="@{/post-offices}">PostOffices</a>
+    </nav>
+</header>
+<section>
+    <form th:method="post" th:action="@{/departures/add_departure}">
+        <h1>Добавить отправлеине</h1>
+        <input type="text" name="type" placeholder="Тип" required>
+        <input type="datetime-local" name="departureDate" value="01/01/1970 00:00:00">
+        <input type="submit" value="Добавить">
+    </form>
+</section>
+<section>
+    <form th:method="delete" th:action="@{/departures/delete_departure}">
+        <h1>Удалить отправление</h1>
+        <input type="number" name="id" placeholder="ИД товара" required>
+        <input type="submit" value="Удалить">
+    </form>
+</section>
+<section>
+    <h1>Список товаров</h1>
+    <p>Сортировать по</p>
+    <select>
+        <option value="sort_item_id">ИД отправления</option>
+        <option value="sort_title">Типу отправления</option>
+        <option value="sort_creation_date">Дате отправки</option>
+    </select>
+    <table>
+        <tr>
+            <th>ИД отправления</th>
+            <th>Тип отправления</th>
+            <th>Дата отправки</th>
+        </tr>
+        <tr th:each="departure:${departures}">
+            <td th:text="${departure.id}"></td>
+            <td th:text="${departure.type}"></td>
+            <td th:text="${departure.departureDate}"></td>
+        </tr>
+    </table>
+</section>
+</body>
+</html>
