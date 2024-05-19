@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>PostOffices</title>
+</head>
+<body>
+<header>
+    <h1>Shop admin panel (post-offices)</h1>
+    <nav>
+        <a th:href="@{/}">Main</a>
+        <a th:href="@{/departures}">Departures</a>
+    </nav>
+</header>
+<main>
+    <section>
+        <form th:method="post" th:action="@{/post-offices/add_post-office}">
+            <h1>Добавить почтовый пункт</h1>
+            <input type="text" name="name" placeholder="Название пунтка отправки">
+            <input type="text" name="city" placeholder="Название города">
+            <input type="submit" value="Добавить">
+        </form>
+    </section>
+    <section>
+        <form th:action="@{/post-offices/delete_post-office}" th:method="delete">
+            <h1>Удалить почтовый пункт</h1>
+            <input type="number" name="id" placeholder="ИД почтового пункта" required>
+            <input type="submit" value="Удалить">
+        </form>
+    </section>
+    <section>
+        <h1>Список почтовых пунтков</h1>
+        <p>Сортировать по</p>
+        <select>
+            <option value="sort_id">ИД пунтка</option>
+            <option value="sort_order_date">Названию</option>
+            <option value="sort_item_id">Городу</option>
+        </select>
+        <table>
+            <tr>
+                <th>ИД пунтка</th>
+                <th>Название пунтка</th>
+                <th>Название города</th>
+            </tr>
+            <tr th:each="postOffice:${postOffices}">
+                <td th:text="${postOffice.id}"></td>
+                <td th:text="${postOffice.name}"></td>
+                <td th:text="${postOffice.cityName}"></td>
+            </tr>
+        </table>
+    </section>
+</main>
+</body>
+</html>
